@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps
 
 module pc(
-    input  wire rst, clk, clk_pc,
+    input  wire rst, clk,
+    input  wire we,
     input  wire [4:0] in;
     output wire [4:0] out;
 );
@@ -19,7 +20,7 @@ end
 
 always @(*) begin
     address_nxt = address_q;
-    if (clk_pc) begin
+    if (we) begin
         address_nxt = in;
     end
 end

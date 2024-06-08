@@ -4,7 +4,7 @@ module core(
     input wire rst, clk
 );
 
-wire clk_mar, clk_ir, clk_pc, clk_d0, clk_alureg;
+wire we_mar, we_ir, we_pc, we_d0, we_alureg;
 wire e_ms, e_ir, e_pc, e_d0, e_alureg;
 wire read, write;
 wire [1:0] func;
@@ -15,7 +15,7 @@ wire [7:0] main_bus;
 
 mar addr (
     .clk(clk), .rst(rst),
-    .clk_mar(clk_mar),
+    .we(we_mar),
     .in(main_bus),
     .out(address),
 );
@@ -33,7 +33,7 @@ wire [7:0] ir_out;
 
 ir inst (
     .clk(clk), .rst(rst),
-    .clk(clk_ir),
+    .we(we_ir),
     .in(main_bus),
     .out(ir_out)
 );
@@ -42,7 +42,7 @@ wire [4:0] pc_out;
 
 pc pc_addr (
     .clk(clk), .rst(rst),
-    .clk_pc(clk_pc),
+    .we(we_pc),
     .in(main_bus[4:0]),
     .out(pc_out)
 );
@@ -51,7 +51,7 @@ wire [7:0] d0_out;
 
 d0 data (
     .clk(clk), .rst(rst),
-    .clk_d0(clk_d0),
+    .we(we_d0),
     .in(main_bus),
     .out(d0_out)
 );
@@ -68,7 +68,7 @@ wire [7:0] alureg_out;
 
 alureg alu_result (
     .clk(clk), .rst(rst),
-    .clk_alureg(clk_alureg),
+    .we(we_alureg),
     .in(alu_out),
     .out(alureg_out)
 );
@@ -78,11 +78,11 @@ cu control (
     .clk_cu(clk),
     .opcode(opcode),
     .z(z),
-    .clk_mar(clk_mar),
-    .clk_ir(clk_ir),
-    .clk_pc(clk_pc),
-    .clk_d0(clk_d0),
-    .clk_alureg(clk_alureg),
+    .we_mar(we_mar),
+    .we_ir(we_ir),
+    .we_pc(we_pc),
+    .we_d0(we_d0),
+    .we_alureg(we_alureg),
     .e_ms(e_ms),
     .e_ir(e_ir),
     .e_pc(e_pc),

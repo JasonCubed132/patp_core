@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps
 
 module mar(
-    input  wire rst, clk, clk_mar,
+    input  wire rst, clk,
+    input  wire we,
     input  wire [4:0] in,
     output wire [4:0] out
 );
@@ -21,7 +22,7 @@ assign out = address_q;
 
 always @(*) begin
     address_nxt = address_q;
-    if (clk_mar) begin
+    if (we) begin
         address_nxt = in;
     end
 end

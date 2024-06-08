@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps
 
 module alureg(
-    input  wire rst, clk, clk_alureg,
+    input  wire rst, clk,
+    input  wire we,
     input  wire [7:0] in,
     output wire [7:0] out
 );
@@ -21,7 +22,7 @@ end
 
 always @(*) begin
     data_nxt = data_q; 
-    if (clk_alureg) begin
+    if (we) begin
         data_nxt = in;
     end
 end
