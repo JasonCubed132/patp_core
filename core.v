@@ -5,7 +5,7 @@ module core(
 );
 
 wire we_mar, we_ir, we_pc, we_d0, we_alureg;
-wire e_ms, e_ir, e_pc, e_d0, e_alureg;
+wire oe_ms, oe_ir, oe_pc, oe_d0, oe_alureg;
 wire read, write;
 wire [1:0] func;
 wire z;
@@ -83,17 +83,17 @@ cu control (
     .we_pc(we_pc),
     .we_d0(we_d0),
     .we_alureg(we_alureg),
-    .e_ms(e_ms),
-    .e_ir(e_ir),
-    .e_pc(e_pc),
-    .e_d0(e_d0),
-    .e_alureg(e_alureg)
+    .oe_ms(oe_ms),
+    .oe_ir(oe_ir),
+    .oe_pc(oe_pc),
+    .oe_d0(oe_d0),
+    .oe_alureg(oe_alureg)
 );
 
-assign main_bus = {8{e_ms}} & ms_out
-                | {8{e_ir}} & ir_out
-                | {8{e_pc}} & pc_out
-                | {8{e_d0}} & d0_out
-                | {8{e_alureg}} & alureg_out;
+assign main_bus = {8{oe_ms}} & ms_out
+                | {8{oe_ir}} & ir_out
+                | {8{oe_pc}} & pc_out
+                | {8{oe_d0}} & d0_out
+                | {8{oe_alureg}} & alureg_out;
 
 endmodule
