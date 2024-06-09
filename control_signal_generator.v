@@ -18,6 +18,137 @@ always @(*) begin
     we_mar = 1'b0; we_ir = 1'b0; we_pc = 1'b0; we_d0 = 1'b0; we_alureg = 1'b0;
     start_execute = 1'b0; start_fetch = 1'b0;
 
+    if (fetch) begin
+        if (t1) begin
+            oe_pc = 1'b1;
+            we_mar = 1'b1;
+        end
+        if (t2) begin
+            read = 1'b1;
+            oe_ms = 1'b1;
+            we_ir = 1'b1;
+        end
+        if (t3) begin
+            oe_pc = 1'b1;
+            func = 2'b01;
+            we_alureg = 1'b1;
+        end
+        if (t4) begin
+            oe_alureg = 1'b1;
+            we_pc = 1'b1;
+        end
+        if (t5) begin
+            start_execute = 1'b1;
+        end
+    end
+
+    if (clear) begin
+        if (t1) begin
+            func = 2'b0;
+            we_alureg = 1'b1;
+        end
+        if (t2) begin
+            oe_alureg = 1'b1;
+            we_d0 = 1'b1;
+        end
+        if (t3) begin
+            start_fetch = 1'b1;
+        end
+    end
+
+    if (inc1) begin
+        if (t1) begin
+            oe_d0 = 1'b1;
+            func = 2'b01;
+            we_alureg = 1'b1;
+        end
+        if (t2) begin
+            oe_alureg = 1'b1;
+            we_d0 = 1'b1;
+        end
+        if (t3) begin
+            start_fetch = 1'b1;
+        end
+    end
+
+    if (add) begin
+        if (t1) begin
+            oe_ir = 1'b1;
+            func = 2'b10;
+            we_alureg = 1'b1;
+        end
+        if (t2) begin
+            oe_alureg = 1'b1;
+            we_d0 = 1'b1;
+        end
+        if (t3) begin
+            start_fetch = 1'b1;
+        end
+    end
+
+    if (dec1) begin
+        if (t1) begin
+            oe_d0 = 1'b1;
+            func = 2'b11;
+            we_alureg = 1'b1;
+        end
+        if (t2) begin
+            oe_alureg = 1'b1;
+            we_d0 = 1'b1;
+        end
+        if (t3) begin
+            start_fetch = 1'b1;
+        end
+    end
+
+    if (jmp) begin
+        if (t1) begin
+            oe_ir = 1'b1;
+            we_pc = 1'b1;
+        end
+        if (t2) begin
+            start_fetch = 1'b1;
+        end
+    end
+
+    if (buz) begin
+        if (t1 & (z != 1'b0)) begin
+            oe_ir = 1'b1;
+            we_pc = 1'b1;
+        end
+        if (t2) begin
+            start_fetch = 1'b1;
+        end
+    end
+
+    if (load) begin
+        if (t1) begin
+            oe_ir = 1'b1;
+            we_mar = 1'b1;
+        end
+        if (t2) begin
+            read = 1'b1;
+            oe_ms = 1'b1;
+            we_d0 = 1'b1;
+        end
+        if (t3) begin
+            start_fetch = 1'b1;
+        end
+    end
+
+    if (store) begin
+        if (t1) begin
+            oe_ir = 1'b1;
+            we_mar = 1'b1;
+        end
+        if (t2) begin
+            oe_d0 = 1'b1;
+            write = 1'b1;
+        end
+        if (t3) begin
+            start_fetch = 1'b1;
+        end
+    end
 end
 
 endmodule
