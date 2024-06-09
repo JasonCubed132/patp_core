@@ -92,8 +92,8 @@ cu control (
 );
 
 assign main_bus = {8{oe_ms}} & ms_out
-                | {8{oe_ir}} & ir_out
-                | {8{oe_pc}} & pc_out
+                | {8{oe_ir}} & {3'b0, ir_out}
+                | {8{oe_pc}} & {3'b0, pc_out}
                 | {8{oe_d0}} & d0_out
                 | {8{oe_alureg}} & alureg_out;
 
