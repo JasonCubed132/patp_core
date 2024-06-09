@@ -8,8 +8,8 @@ module ir(
     output wire [2:0] out_opcode
 );
 
-wire instruction_nxt [7:0];
-reg  instruction_q   [7:0];
+reg [7:0] instruction_nxt;
+reg [7:0] instruction_q;
 
 always @(posedge clk or posedge rst) begin
     if (rst) begin

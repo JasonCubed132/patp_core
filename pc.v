@@ -3,12 +3,12 @@
 module pc(
     input  wire rst, clk,
     input  wire we,
-    input  wire [4:0] in;
-    output wire [4:0] out;
+    input  wire [4:0] in,
+    output wire [4:0] out
 );
 
-wire address_nxt [4:0];
-reg  address_q   [4:0];
+reg [4:0] address_nxt;
+reg [4:0] address_q;
 
 always @(posedge clk or posedge rst) begin
     if (rst) begin

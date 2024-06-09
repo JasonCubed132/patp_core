@@ -7,8 +7,8 @@ module d0(
     output wire [7:0] out
 );
 
-wire data_nxt [7:0];
-reg  data_q   [7:0];
+reg [7:0] data_nxt;
+reg [7:0] data_q;
 
 always @(posedge clk or posedge rst) begin
     if (rst) begin

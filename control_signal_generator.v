@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 
 module control_signal_generator(
-    input wire fetch, clear, inc1, add, dec1, jmp, buz, load, store
+    input wire fetch, clear, inc1, add, dec1, jmp, buz, load, store,
     input wire t1, t2, t3, t4, t5,
-    input wire z,
+    input wire zero,
     output reg oe_ms, oe_ir, oe_pc, oe_d0, oe_alureg,
     output reg [1:0] func,
     output reg read, write,
@@ -112,7 +112,7 @@ always @(*) begin
     end
 
     if (buz) begin
-        if (t1 & (z != 1'b0)) begin
+        if (t1 & (zero != 1'b0)) begin
             oe_ir = 1'b1;
             we_pc = 1'b1;
         end

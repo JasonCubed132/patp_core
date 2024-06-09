@@ -8,7 +8,7 @@ wire we_mar, we_ir, we_pc, we_d0, we_alureg;
 wire oe_ms, oe_ir, oe_pc, oe_d0, oe_alureg;
 wire read, write;
 wire [1:0] func;
-wire z;
+wire zero;
 wire [2:0] opcode; 
 wire [4:0] address;
 wire [7:0] main_bus;
@@ -16,26 +16,28 @@ wire [7:0] main_bus;
 mar addr (
     .clk(clk), .rst(rst),
     .we(we_mar),
-    .in(main_bus),
-    .out(address),
+    .in(main_bus[4:0]),
+    .out(address)
 );
 
 wire [7:0] ms_out;
 
-ms store (
+main_store store (
     .clk(clk), .rst(rst),
     .read(read), .write(write),
-    .in(main_bus),
-    .out(ms_out)
+    .address(address),
+    .data_i(main_bus),
+    .data_o(ms_out)
 );
 
-wire [7:0] ir_out;
+wire [4:0] ir_out;
 
 ir inst (
     .clk(clk), .rst(rst),
     .we(we_ir),
     .in(main_bus),
-    .out(ir_out)
+    .out_opcode(opcode),
+    .out_operand(ir_out)
 );
 
 wire [4:0] pc_out;
@@ -61,7 +63,7 @@ wire [7:0] alu_out;
 alu maths (
     .p(d0_out), .q(main_bus),
     .func(func),
-    .z(z), .result(alu_out)
+    .zero(zero), .result(alu_out)
 );
 
 wire [7:0] alureg_out;
@@ -75,9 +77,8 @@ alureg alu_result (
 
 cu control (
     .clk(clk), .rst(rst),
-    .clk_cu(clk),
     .opcode(opcode),
-    .z(z),
+    .zero(zero),
     .we_mar(we_mar),
     .we_ir(we_ir),
     .we_pc(we_pc),

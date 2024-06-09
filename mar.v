@@ -7,8 +7,8 @@ module mar(
     output wire [4:0] out
 );
 
-reg  [4:0] address_q;
-wire [4:0] address_nxt;
+reg [4:0] address_q;
+reg [4:0] address_nxt;
 
 always @(posedge clk or posedge rst) begin
     if (rst) begin

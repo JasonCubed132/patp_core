@@ -7,8 +7,8 @@ module alureg(
     output wire [7:0] out
 );
 
-wire data_nxt [7:0];
-reg  data_q   [7:0];
+reg [7:0] data_nxt;
+reg [7:0] data_q;
 
 assign out = data_q;
 

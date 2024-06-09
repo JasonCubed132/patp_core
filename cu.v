@@ -3,7 +3,7 @@
 module cu(
     input wire rst, clk,
     input wire [2:0] opcode,
-    input wire z,
+    input wire zero,
 
     output wire oe_ms, oe_ir, oe_pc, oe_d0, oe_alureg,
     output wire [1:0] func,
@@ -46,7 +46,7 @@ control_signal_generator c (
     .fetch(fetch), .clear(clear), .inc1(inc1), .add(add),
     .dec1(dec1), .jmp(jump), .buz(buz), .load(load), .store(store),
     .t1(t1), .t2(t2), .t3(t3), .t4(t4), .t5(t5),
-    .z(z),
+    .zero(zero),
     .oe_ms(oe_ms), .oe_ir(oe_ir), .oe_pc(oe_pc), .oe_d0(oe_d0), .oe_alureg(oe_alureg),
     .func(func),
     .read(read), .write(write),
